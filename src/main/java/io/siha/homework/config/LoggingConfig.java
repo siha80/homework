@@ -9,8 +9,6 @@ import org.aspectj.lang.annotation.Pointcut;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.web.context.request.RequestContextHolder;
-import org.springframework.web.context.request.ServletRequestAttributes;
 import org.thymeleaf.util.StringUtils;
 
 import java.util.Arrays;
@@ -23,7 +21,7 @@ import static java.util.stream.Collectors.joining;
 public class LoggingConfig {
     private static final Logger logger = LoggerFactory.getLogger(StringUtils.repeat("-", 39) + ">");
 
-    @Pointcut("within(io.siha.homework.*) " +
+    @Pointcut("within(io.siha.homework..*) " +
             "&& (" +
             "within(@org.springframework.web.bind.annotation.RestController *) " +
             "|| within(@org.springframework.web.bind.annotation.RestControllerAdvice *) " +
@@ -48,11 +46,7 @@ public class LoggingConfig {
 
     @Around(value = "restApis()")
     public Object loggingRestApis(ProceedingJoinPoint jp) throws Throwable {
-        final String uri = Optional.ofNullable(RequestContextHolder.getRequestAttributes())
-                .map(attr -> ((ServletRequestAttributes) attr).getRequest().getRequestURI())
-                .orElse("NOT-HTTP-REQUEST");
-
-        final String endPhrase = "[CALLED - API]" + String.format("[URI: %s]", uri) + " %s [REQUEST] : %s | [RETURN] : %s";
+        final String endPhrase = "[CALLED - API]" + " %s [REQUEST] : %s | [RETURN] : %s";
         return loggingAop(jp, endPhrase);
     }
 

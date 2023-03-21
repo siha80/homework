@@ -1,1 +1,10 @@
+spring:
+  thymeleaf:
+    prefix: classpath:/templates/
+    suffix: .html
 
+search-api:
+  kakao:
+    rest-api-key: 59b77962e99b4a75f6c2b47ff399dff6
+  naver:
+    rest-api-key:

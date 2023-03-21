@@ -1,0 +1,35 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <script src="http://code.jquery.com/jquery-3.5.1.min.js"></script>
+
+    <script>
+        function callSearch() {
+            const query = $("#query").val();
+            $.ajax({
+                url: "/api/v1/search?query=" + query,
+                type: 'GET',
+            }).done(function (data) {
+                console.log(data)
+                response = JSON.stringify(data);
+                $("#searchResult").html();
+            });
+        }
+
+        $(document).ready(
+            function () {
+                $("#searchButton").on("click", function () {
+                    callSearch();
+                })
+            }
+        )
+    </script>
+
+</head>
+<body>
+<form name="searchForm">
+    검색어: <input type="text" id="query"/>
+    <input type="button" id="searchButton" value="검색"/>
+</form>
+<div id="searchResult"></div>
+</body>
+</html>
