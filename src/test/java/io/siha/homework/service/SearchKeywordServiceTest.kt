@@ -7,6 +7,7 @@ import io.mockk.mockk
 import io.siha.homework.entity.SearchKeyword
 import io.siha.homework.enums.ReturnCode
 import io.siha.homework.repository.SearchKeywordRepository
+import java.util.*
 
 class SearchKeywordServiceTest : FunSpec({
     val searchKeywordRepository: SearchKeywordRepository = mockk()
@@ -18,7 +19,7 @@ class SearchKeywordServiceTest : FunSpec({
         keyword.searchCount = 10
 
         every {
-            searchKeywordRepository.findFirst10OrderBySearchCountDesc()
+            searchKeywordRepository.findFirst10ByOrderBySearchCountDesc()
         } returns listOf(keyword)
 
         val response = searchKeywordService.keywords()
@@ -27,4 +28,20 @@ class SearchKeywordServiceTest : FunSpec({
         response.data.keywords[0].value shouldBe keyword.keyword
     }
 
+    test("update should return searchKeword that the search count is updated") {
+        every {
+            searchKeywordRepository.findFirstByKeyword(any())
+        } returns Optional.empty()
+
+        val searchKeyword = SearchKeyword()
+        searchKeyword.keyword = "test"
+        searchKeyword.searchCount = 2
+        every {
+            searchKeywordRepository.save(any())
+        } returns searchKeyword
+
+        val response = searchKeywordService.update("test")
+        response.keyword shouldBe searchKeyword.keyword
+        response.searchCount shouldBe searchKeyword.searchCount
+    }
 })

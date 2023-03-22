@@ -31,4 +31,8 @@ public class SearchKeyword {
     @Column(name = "updated_at")
     @LastModifiedDate
     private Date updatedAt;
+
+    public void addCount() {
+        setSearchCount(getSearchCount() + 1);
+    }
 }
