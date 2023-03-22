@@ -3,6 +3,7 @@ package io.siha.homework.config;
 import org.hibernate.dialect.Database;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabase;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseBuilder;
@@ -22,6 +23,7 @@ import java.util.Properties;
         transactionManagerRef = "transactionManager",
         basePackages = {"io.siha.homework"
         })
+@EnableJpaAuditing
 public class DatabaseConfig {
 
     @Bean(destroyMethod = "shutdown")

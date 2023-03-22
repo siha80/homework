@@ -1,0 +1,14 @@
+= KAKAOBANK Homework API Document
+:doctype: book
+:source-highlighter: highlightjs
+:toc: left
+:toclevels: 2
+:sectlinks:
+
+[[Search]]
+== Search API
+=== search
+operation::search-api/search-blog[snippets='curl-request,http-request,http-response']
+
+=== keyword
+operation::search-api/search-keyword[snippets='curl-request,http-request,http-response']

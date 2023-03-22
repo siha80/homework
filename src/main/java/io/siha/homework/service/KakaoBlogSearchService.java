@@ -3,6 +3,7 @@ package io.siha.homework.service;
 import io.siha.homework.dto.SearchResponse;
 import io.siha.homework.dto.ResponseT;
 import io.siha.homework.enums.SortBy;
+import io.siha.homework.repository.SearchKeywordRepository;
 import io.siha.homework.service.client.KakaoSearchApiClient;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
